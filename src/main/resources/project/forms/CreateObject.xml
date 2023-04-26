@@ -1,0 +1,30 @@
+<editor>
+    <help>https://docs.cloudbees.com/docs/cloudbees-cd/latest/plugins/ec-rally#CreateObject</help>
+    <formElement>
+        <label>Configuration:</label>
+        <property>connection_config</property>
+        <value></value>
+        <documentation>The name of the configuration which holds all the connection information for Rally. This must reference a valid existing configuration.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Object Type:</label>
+        <property>rally_object_type</property>
+        <value></value>
+        <documentation>Provide the object type to perform the create operation.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>JSON:</label>
+        <property>rally_data</property>
+        <value></value>
+        <documentation>Provide the JSON structure of the object to create.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>1</required>
+        <type>textarea</type>
+    </formElement>
+</editor>

@@ -1,0 +1,95 @@
+<editor>
+    <help>https://docs.cloudbees.com/docs/cloudbees-cd/latest/plugins/ec-rally#QueryObject</help>
+    <formElement>
+        <label>Configuration</label>
+        <property>connection_config</property>
+        <value></value>
+        <documentation>The name of the configuration which holds all the connection information for Rally. This must reference a valid existing configuration.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Fetch Full Object?:</label>
+        <property>rally_fullObject</property>
+        <value></value>
+        <documentation>Fetch the complete json structure of the object.</documentation>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>true</checkedValue>
+        <uncheckedValue>false</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Object Type:</label>
+        <property>rally_object_type</property>
+        <value></value>
+        <documentation>Provide the object type to query the create operation.</documentation>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Order by:</label>
+        <property>rally_orderString</property>
+        <value></value>
+        <documentation>Provide the Attribute to order the results. (e.g. Priority desc,Severity)</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Page Size:</label>
+        <property>rally_pageSize</property>
+        <value></value>
+        <documentation>Page size for results. Must be greater than 0 and not more than 100, default is 20.</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Query:</label>
+        <property>rally_queryString</property>
+        <value></value>
+        <documentation>A query string (e.g. ((Name contains "foo") and (TargetBuild = "12345")), (Description contains "baz"))</documentation>
+        <required>0</required>
+        <type>textarea</type>
+    </formElement>
+    <formElement>
+        <label>Start Index:</label>
+        <property>rally_startIndex</property>
+        <value></value>
+        <documentation>Start index (1-based) for queries. The default is 1.</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Workspace URL:</label>
+        <property>rally_workspace</property>
+        <value></value>
+        <documentation>If not present, then the query will run in the user's default workspace. If present, this should be the REST URL of the workspace the user wants to search in. (e.g. https://community.rallydev.com/slm/webservice/1.31/workspace/2077)</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Project URL:</label>
+        <property>rally_project</property>
+        <value></value>
+        <documentation>If not set, or specified as "null" then the "parent project" in the given workspace is used. If set, this should be the REST URI of the project. You may omit the "Workspace URL" parameter because the workspace will be inherited from the project. (e.g. https://community.rallydev.com/slm/webservice/1.31/project/2078)</documentation>
+        <required>0</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Project Scope Up:</label>
+        <property>rally_projectScopeUp</property>
+        <value></value>
+        <documentation>In addition to the specified project, include projects above the specified one. (Default is true)</documentation>
+        <type>checkbox</type>
+        <checkedValue>true</checkedValue>
+        <uncheckedValue>false</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>Project Scope Down:</label>
+        <property>rally_projectScopeDown</property>
+        <value></value>
+        <documentation>In addition to the specified project, include child projects below the current one. (Default is true)</documentation>
+        <type>checkbox</type>
+        <checkedValue>true</checkedValue>
+        <uncheckedValue>false</uncheckedValue>
+    </formElement>
+</editor>

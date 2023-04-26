@@ -1,0 +1,37 @@
+<editor>
+    <formElement>
+        <type>entry</type>
+        <label>Description:</label>
+        <property>desc</property>
+        <documentation>Provide a simple description for this configuration.</documentation>
+    </formElement>
+    <formElement>
+        <type>entry</type>
+        <label>Rally Url:</label>
+        <property>rally_url</property>
+        <documentation>Provide the host name or IP address of the Rally server.</documentation>
+        <required>1</required>
+    </formElement>
+    <formElement>
+        <type>credential</type>
+        <label>Login as:</label>
+        <property>credential</property>
+        <credentialType>choose</credentialType>
+        <required>1</required>
+        <documentation>Rally account username/password or API key name/API key. This credential must have enough privileges to perform API functions.</documentation>
+    </formElement>
+    <formElement>
+        <type>entry</type>
+        <label>Debug Level:</label>
+        <property>debug</property>
+        <documentation>Level for output: 0=errors only, 1=normal headers and responses, 2+=debugging information included.</documentation>
+        <required>1</required>
+    </formElement>
+    <formElement>
+        <type>entry</type>
+        <label>API version:</label>
+        <property>api_version</property>
+        <documentation>API version to use.</documentation>
+        <required>1</required>
+    </formElement>
+</editor>

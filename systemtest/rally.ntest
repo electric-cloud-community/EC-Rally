@@ -1,0 +1,107 @@
+# -*-Perl-*-
+# rally.ntest -
+# Exercise basic components of EC-Rally plugin
+# Copyright (c) 2005-2012 Electric Cloud, Inc.
+# All rights reserved
+
+use strict;
+use warnings;
+use ECTest;
+
+# system tests
+require "$::gTestFileDir/ntest.common";
+
+$::gProjectImported = 0;
+$::gtestProjectName = 'Rally_tests';
+$::gConfigCreated   = 0;
+
+
+sub createConfig() {
+    my $xpath = $::N->runProcedure(
+                                   "$::gPlugin_name",
+                                   {
+                                      procedureName   => 'CreateConfiguration',
+                                      pollInterval    => '0.2',
+                                      timeout         => 600,
+                                      actualParameter => [{ actualParameterName => 'config', value => 'rallyCfgTestServer' }, { actualParameterName => 'desc', value => 'Rally configuration' }, { actualParameterName => 'rally_url', value => 'community.rallydev.com' }, { actualParameterName => 'credential', value => 'test' }, { actualParameterName => 'debug', value => '1' }, { actualParameterName => 'api_version', value => '1.31' },],
+                                      credential => [{ credentialName => 'test', userName => 'jsalas@avantica.net', password => 'jsalas', },],
+                                   }
+                                  );
+    assertOK($xpath, 'run create configuration procedure');
+    my $jobId  = 0;
+    my $status = '';
+    assertDef($xpath, 'runProcedure finished without a timeout');
+    if ($xpath) {
+        $jobId  = $xpath->findvalue('//jobId');
+        $status = $xpath->findvalue('//status');
+        assertTrue($jobId && $jobId ne "",'valid job id');
+        assertEq('completed', $status, "job $jobId complete");
+        if ($status ne 'completed') {
+            assertOK($::N->abortJob($jobId, { force => 1 }));
+        }
+    }
+    $xpath = $::N->getJobDetails($jobId);
+
+    # check that the config and credential exist
+    $xpath = $::N->getProperty("/projects/$::gPlugin_name/rally_cfgs/rallyCfgTestServer/desc");
+    assertEq("Rally configuration", $xpath->findvalue("//value")->string_value, "Configuration description");
+    $xpath = $::N->getCredential("$::gPlugin_name", "rallyCfgTestServer");
+    assertEq('jsalas@avantica.net', $xpath->findvalue("//userName")->string_value, 'Credential user');
+    $::gConfigCreated = 1;
+}
+
+sub doSetup() {
+
+    if (!$::gConfigCreated) {
+        createConfig();
+    }
+
+}
+
+################################
+# check-components-present - Check that the plugin contains required components
+#
+# Arguments:
+#   none
+#
+# Returns:
+#   none
+#
+################################
+
+ntest 'check-components-present', {}, sub {
+
+    # Check that the plugin contains required components
+
+    my $xpath;
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "CreateConfiguration");
+    assertOK($xpath, 'get steps');
+    assertEq("CreateConfiguration",       $xpath->findvalue("//step[1]/stepName"), "step 1: CreateConfiguration");
+    assertEq("CreateAndAttachCredential", $xpath->findvalue("//step[2]/stepName"), "step 2: CreateAndAttachCredential");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "DeleteConfiguration");
+    assertOK($xpath, "DeleteConfiguration");
+    assertEq("DeleteConfiguration", $xpath->findvalue("//step[1]/stepName"), "step 1 is DeleteConfiguration");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "CreateObject");
+    assertOK($xpath, "CreateObject");
+    assertEq("CreateObject", $xpath->findvalue("//step[1]/stepName"), "step 1 is CreateObject");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "ReadObject");
+    assertOK($xpath, "ReadObject");
+    assertEq("ReadObject", $xpath->findvalue("//step[1]/stepName"), "step 1 is ReadObject");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "UpdateObject");
+    assertOK($xpath, "UpdateObject");
+    assertEq("UpdateObject", $xpath->findvalue("//step[1]/stepName"), "step 1 is UpdateObject");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "DeleteObject");
+    assertOK($xpath, "DeleteObject");
+    assertEq("DeleteObject", $xpath->findvalue("//step[1]/stepName"), "step 1 is DeleteObject");
+
+    $xpath = $::N->getSteps("$::gPlugin_name", "QueryObject");
+    assertOK($xpath, "QueryObject");
+    assertEq("QueryObject", $xpath->findvalue("//step[1]/stepName"), "step 1 is QueryObject");
+
+};

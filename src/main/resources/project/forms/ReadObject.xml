@@ -1,0 +1,44 @@
+<editor>
+<help>https://docs.cloudbees.com/docs/cloudbees-cd/latest/plugins/ec-rally#ReadObject</help>
+    <formElement>
+        <label>Configuration:</label>
+        <property>connection_config</property>
+        <value></value>
+        <documentation>The name of the configuration which holds all the connection information for Rally. This must reference a valid existing configuration.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+
+        <configuration>1</configuration>
+        
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Object Type:</label>
+        <property>rally_object_type</property>
+        <value></value>
+        <documentation>Provide the object type to perform the read operation.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>1</required>
+        <type>entry</type>
+    </formElement>
+    <formElement>
+        <label>Use FormattedID?:</label>
+        <property>use_formattedId</property>
+        <value></value>
+        <documentation>If selected, specify the FormattedID in the next field, if not selected, use ObjectID.</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>0</required>
+        <type>checkbox</type>
+        <checkedValue>1</checkedValue>
+        <uncheckedValue>0</uncheckedValue>
+    </formElement>
+    <formElement>
+        <label>ID:</label>
+        <property>rally_ID</property>
+        <value></value>
+        <documentation>Provide the ID of the object (e.g. DE1057 or 205918369687)</documentation>
+        <expansionDeferred>0</expansionDeferred>
+        <required>1</required>
+        <type>entry</type>
+    </formElement> 
+</editor>
